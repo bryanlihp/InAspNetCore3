@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld", "HelloWorld\HelloWorld.csproj", "{A79F990C-0A40-4761-BB0B-848C1B4C460D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloWorld", "HelloWorld\HelloWorld.csproj", "{A79F990C-0A40-4761-BB0B-848C1B4C460D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContainerApp", "ContainerApp\ContainerApp.csproj", "{839C12E4-724D-47F8-8AE7-B8EF460CB30B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A79F990C-0A40-4761-BB0B-848C1B4C460D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A79F990C-0A40-4761-BB0B-848C1B4C460D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A79F990C-0A40-4761-BB0B-848C1B4C460D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{839C12E4-724D-47F8-8AE7-B8EF460CB30B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{839C12E4-724D-47F8-8AE7-B8EF460CB30B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{839C12E4-724D-47F8-8AE7-B8EF460CB30B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{839C12E4-724D-47F8-8AE7-B8EF460CB30B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
