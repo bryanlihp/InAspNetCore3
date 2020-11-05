@@ -1,4 +1,6 @@
-﻿using ContainerApp.Interfaces;
+﻿using ContainerApp.Attributes;
+using ContainerApp.Container;
+using ContainerApp.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -58,7 +60,7 @@ namespace ContainerApp.Services
 
     }
 
-    //[MapTo(typeof(IQux),Lifetime.Root)]
+    [MapTo(typeof(IQux),Lifetime.Root)]
     public class Qux :Base, IQux
     {
 
