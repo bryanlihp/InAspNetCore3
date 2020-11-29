@@ -17,7 +17,7 @@ namespace DependencyInjection
             Test4();
             Test5();
             Test6();
-            TestN();
+            //TestN();
         }
 
         static void Test1()
@@ -141,13 +141,13 @@ namespace DependencyInjection
             provider.GetService<T>();
             provider.GetService<T>();
         }
-
+/*
         static void TestN()
         {
             Console.WriteLine("TestX - IFoo, IBar and IFooBar");
 
             Console.WriteLine();
         }
-
+*/
     }
 }
