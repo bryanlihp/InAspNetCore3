@@ -9,24 +9,22 @@ namespace ContainerApp.Services
 {
     public class Base : IDisposable
     {
-        private bool disposedValue;
+        private bool _disposedValue;
 
         public Base() => Console.WriteLine($"Instance of {GetType().Name} is created.");
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (_disposedValue) return;
+            Console.WriteLine($"Instance of {GetType().Name} is disposed.");
+            if (disposing)
             {
-                Console.WriteLine($"Instance of {GetType().Name} is disposed.");
-                if (disposing)
-                {
-                    // TODO: dispose managed state (managed objects)
-                }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-                // TODO: set large fields to null
-                disposedValue = true;
+                // TODO: dispose managed state (managed objects)
             }
+
+            // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+            // TODO: set large fields to null
+            _disposedValue = true;
         }
 
         // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
