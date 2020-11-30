@@ -7,6 +7,7 @@ namespace DependencyInjection.Interfaces
     public interface IFoo { }
     public interface IBar { }
     public interface IBaz { }
+    public interface IQux {}
     public interface IFooBar<T1,T2> { }
 
 }

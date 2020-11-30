@@ -43,6 +43,15 @@ namespace DependencyInjection.Services
     public class Baz : Base, IBaz, IDisposable
     {
     }
+
+    public class Qux : Base, IQux, IDisposable
+    {
+        public Qux(IBar bar)
+        {
+            Bar = bar;
+        }
+        public IBar Bar { get; }
+    }
     public class FooBar<T1,T2> : Base, IFooBar<T1, T2>, IDisposable
     {
         public T1 Foo { get; }

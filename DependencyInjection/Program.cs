@@ -17,6 +17,7 @@ namespace DependencyInjection
             Test4();
             Test5();
             Test6();
+            Test7();
             //TestN();
         }
 
@@ -141,13 +142,45 @@ namespace DependencyInjection
             provider.GetService<T>();
             provider.GetService<T>();
         }
-/*
-        static void TestN()
+
+        static void Test7()
         {
-            Console.WriteLine("TestX - IFoo, IBar and IFooBar");
+            Console.WriteLine("Test7 - IServiceProvider with scope verification");
+            var root = new ServiceCollection()
+                .AddSingleton<IQux, Qux>()
+                .AddScoped<IBar, Bar>()
+                .BuildServiceProvider(true);
+
+            var child = root.CreateScope().ServiceProvider;
+
+            void ResolveService<T>(IServiceProvider provider)
+            {
+                var IsRootContainer = root == provider ? "Yes" : "No";
+                try
+                {
+                    provider.GetService<T>();
+                    Console.WriteLine($"Status: Success; Service Type: {typeof(T).Name}; Root:{IsRootContainer}");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Status: Failed; Service Type: {typeof(T).Name}; Root:{IsRootContainer}");
+                    Console.WriteLine($"Error: {e.GetBaseException().Message}");
+                }
+            }
+            ResolveService<IQux>(root);  
+            ResolveService<IBar>(root);
+            ResolveService<IQux>(child);
+            ResolveService<IBar>(child);
 
             Console.WriteLine();
         }
-*/
+        /*
+                static void TestN()
+                {
+                    Console.WriteLine("TestX - IFoo, IBar and IFooBar");
+
+                    Console.WriteLine();
+                }
+        */
     }
 }
