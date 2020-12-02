@@ -18,6 +18,8 @@ namespace DependencyInjection
             Test5();
             Test6();
             Test7();
+            Test8();
+            Test9();
             //TestN();
         }
 
@@ -41,7 +43,7 @@ namespace DependencyInjection
             Console.WriteLine("Test2 - IFoo, IBar and IFooBar");
             var provider = new ServiceCollection()
                 .AddTransient<IFoo, Foo>()
-                .AddTransient<IBar,Bar>()
+                .AddTransient<IBar, Bar>()
                 .AddTransient(typeof(IFooBar<,>), typeof(FooBar<,>))
                 .BuildServiceProvider();
 
@@ -76,7 +78,7 @@ namespace DependencyInjection
             Console.WriteLine("Test4 - IServiceProvider");
             var provider = new ServiceCollection().BuildServiceProvider();
             var p1 = provider.GetService<IServiceProvider>();
-            Debug.Assert(p1.GetHashCode()!=provider.GetHashCode());
+            Debug.Assert(p1.GetHashCode() != provider.GetHashCode());
             Console.WriteLine();
         }
         static void Test5()
@@ -84,7 +86,7 @@ namespace DependencyInjection
             Console.WriteLine("Test5 - IFoo, IBar, IBaz lifetime");
             var root = new ServiceCollection()
                 .AddTransient<IFoo, Foo>()
-                .AddScoped<IBar>(_=>new Bar())
+                .AddScoped<IBar>(_ => new Bar())
                 .AddSingleton<IBaz, Baz>()
                 .BuildServiceProvider();
 
@@ -145,7 +147,59 @@ namespace DependencyInjection
 
         static void Test7()
         {
-            Console.WriteLine("Test7 - IServiceProvider with scope verification");
+            Console.WriteLine("Test7 - Lifetime and scope");
+            Console.WriteLine();
+            using (var root = new ServiceCollection()
+                .AddSingleton<IQux, Qux>()
+                .AddScoped<IBar, Bar>()
+                .BuildServiceProvider(false)
+            )
+            {
+                T ResolveService<T>(IServiceProvider provider)
+                {
+                    T svc = default(T);
+                    var isRootContainer = root == provider ? "Yes" : "No";
+                    try
+                    {
+                        svc = provider.GetService<T>();
+                        Console.WriteLine($"Status: Success; Service Type: {typeof(T).Name}; Root:{isRootContainer}");
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"Status: Failed; Service Type: {typeof(T).Name}; Root:{isRootContainer}");
+                        Console.WriteLine($"Error: {e.GetBaseException().Message}");
+                    }
+                    return svc;
+                }
+                Console.WriteLine("Root scope");
+                var qux0 = ResolveService<IQux>(root); // instantiate  Qux as singleton and Bar( referenced by Qux)
+                Console.WriteLine("IQux instance acquired.");
+                var bar = ResolveService<IBar>(root);  // using the same instance as the one that is referenced by Qux 
+                var bar0 = ResolveService<IBar>(root); // using the same instance as the one that is referenced by Qux 
+                Debug.Assert(bar.GetHashCode() == bar0.GetHashCode());
+                Console.WriteLine("IBar instance acquired.");
+
+                using (var scope = root.CreateScope())
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Child scope");
+                    var child = scope.ServiceProvider;
+
+                    var qux1 = ResolveService<IQux>(child);
+                    var bar1 = ResolveService<IBar>(child);
+                    Debug.Assert(qux0.GetHashCode() == qux1.GetHashCode());
+                    Debug.Assert(bar0.GetHashCode() != bar1.GetHashCode());
+                    Console.WriteLine("out of child scope");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("out of root scope");
+            Console.WriteLine();
+        }
+
+        static void Test8()
+        {
+            Console.WriteLine("Test8 - IServiceProvider with scope verification");
             var root = new ServiceCollection()
                 .AddSingleton<IQux, Qux>()
                 .AddScoped<IBar, Bar>()
@@ -167,20 +221,40 @@ namespace DependencyInjection
                     Console.WriteLine($"Error: {e.GetBaseException().Message}");
                 }
             }
-            ResolveService<IQux>(root);  
+
+            ResolveService<IQux>(root);
             ResolveService<IBar>(root);
             ResolveService<IQux>(child);
-            ResolveService<IBar>(child);
+            ResolveService<IBar>(child); // only this one can succeed
 
             Console.WriteLine();
         }
-        /*
-                static void TestN()
-                {
-                    Console.WriteLine("TestX - IFoo, IBar and IFooBar");
+        static void Test9()
+        {
+            Console.WriteLine("Test9 - ServiceProviderOptions");
+            BuildServiceProvider(false);
+            BuildServiceProvider(true); // will fail, service provider cannot create service
 
-                    Console.WriteLine();
+            void BuildServiceProvider(bool validateOnBuild)
+            {
+                try
+                {
+                    var options = new ServiceProviderOptions
+                    {
+                        ValidateOnBuild = validateOnBuild,
+                    };
+                    new ServiceCollection()
+                        .AddSingleton<IBaz, BazEx>()
+                        .BuildServiceProvider(options);
+                    Console.WriteLine($"Status: Success; ValidateOnBuild = {validateOnBuild}");
                 }
-        */
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Status: Failed; ValidateOnBuild = {validateOnBuild}");
+                    Console.WriteLine($"Error: {e.GetBaseException().Message}");
+                }
+            }
+            Console.WriteLine();
+        }
     }
 }

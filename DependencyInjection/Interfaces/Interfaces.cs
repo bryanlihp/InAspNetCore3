@@ -9,5 +9,4 @@ namespace DependencyInjection.Interfaces
     public interface IBaz { }
     public interface IQux {}
     public interface IFooBar<T1,T2> { }
-
 }

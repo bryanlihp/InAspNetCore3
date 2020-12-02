@@ -44,6 +44,14 @@ namespace DependencyInjection.Services
     {
     }
 
+    public class BazEx : Base, IBaz, IDisposable
+    {
+        private BazEx()
+        {
+        }
+        public static readonly BazEx Instance = new BazEx();
+    }
+
     public class Qux : Base, IQux, IDisposable
     {
         public Qux(IBar bar)
