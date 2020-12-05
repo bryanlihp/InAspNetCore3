@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContainerApp", "ContainerAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DependencyInjection", "DependencyInjection\DependencyInjection.csproj", "{F8DE8422-5EE7-4213-85C4-F34D178BB2B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystem", "FileSystem\FileSystem.csproj", "{94E04FC0-5786-4C3D-A765-721484F546AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSystem", "FileSystem\FileSystem.csproj", "{94E04FC0-5786-4C3D-A765-721484F546AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Confguration", "Confguration\Confguration.csproj", "{2043B742-3490-4B1B-918A-735B0BA1632A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{94B8C435-B24B-4996-9EC7-372F2EC9AA3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,10 @@ Global
 		{94E04FC0-5786-4C3D-A765-721484F546AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94E04FC0-5786-4C3D-A765-721484F546AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94E04FC0-5786-4C3D-A765-721484F546AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2043B742-3490-4B1B-918A-735B0BA1632A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2043B742-3490-4B1B-918A-735B0BA1632A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2043B742-3490-4B1B-918A-735B0BA1632A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2043B742-3490-4B1B-918A-735B0BA1632A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
