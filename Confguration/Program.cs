@@ -9,7 +9,8 @@ namespace Configuration
     {
         static void Main(string[] args)
         {
-            ConfigLoader.LoadOptionsFromConfigSource();
+            //ConfigLoader.LoadOptionsFromConfigSource();
+            ConfigBinder.LoadOptions();
         }
     }
 }
